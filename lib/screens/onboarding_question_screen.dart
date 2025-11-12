@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:developer' as developer;
 import '../providers/experience_provider.dart';
-
 import '../widgets/audio_recorder_widget.dart';
 import '../widgets/video_recorder_widget.dart';
 
@@ -111,7 +110,6 @@ class _OnboardingQuestionScreenState
       body: SafeArea(
         child: Column(
           children: [
-            // 🔹 Header
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Row(
@@ -132,151 +130,137 @@ class _OnboardingQuestionScreenState
                 ],
               ),
             ),
-
-            // 🔹 Main Content
             Expanded(
-              child: SingleChildScrollView(
-                padding: EdgeInsets.only(bottom: keyboardHeight),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Why do you want to host\nwith us?',
-                        style: TextStyle(
-                          fontSize: 28,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
-                          height: 1.2,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        'Tell us about your intent and what motivates you to create experiences.',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey[500],
-                        ),
-                      ),
-                      const SizedBox(height: 24),
-
-                      // 📝 Text Field
-                      Container(
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF2A2A2A),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        padding: const EdgeInsets.all(16),
-                        child: TextField(
-                          controller: _textController,
-                          maxLines: 6,
-                          maxLength: _maxCharacters,
-                          style: const TextStyle(
-                              color: Colors.white, fontSize: 14),
-                          decoration: InputDecoration(
-                            hintText: 'I want to host because...',
-                            hintStyle: TextStyle(
-                              color: Colors.grey[600],
-                              fontSize: 14,
-                            ),
-                            border: InputBorder.none,
-                            counterStyle: TextStyle(color: Colors.grey[600]),
-                          ),
-                          onChanged: (value) {
-                            ref
-                                .read(onboardingAnswerProvider.notifier)
-                                .updateTextAnswer(value);
-                          },
-                        ),
-                      ),
-
-                      const SizedBox(height: 24),
-
-                      // 🎙️ Audio Recorder (UI only)
-                      if (_showInlineAudioRecorder)
-                        const InlineAudioRecorder(),
-
-                      // 🎥 Video Preview (only if video exists)
-                      if (answerState.videoPath != null) ...[
-                        const SizedBox(height: 24),
+              child: Center(
+                child: SingleChildScrollView(
+                  padding: EdgeInsets.only(bottom: keyboardHeight),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
                         const Text(
-                          'Recorded Video:',
+                          'Why do you want to host\nwith us?',
                           style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
+                            fontSize: 28,
                             fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                            height: 1.2,
                           ),
                         ),
-                        const SizedBox(height: 10),
-
-                        Stack(
-                          children: [
-                            Container(
-                              height: 200,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                color: Colors.black,
-                                borderRadius: BorderRadius.circular(12),
-                                border: Border.all(color: Colors.white10),
-                              ),
-                              child: const Center(
-                                child: Icon(
-                                  Icons.play_circle_fill,
-                                  color: Colors.white,
-                                  size: 64,
-                                ),
-                              ),
-                            ),
-
-                            Positioned(
-                              top: 6,
-                              right: 6,
-                              child: GestureDetector(
-                                onTap: () {
-                                  ref.read(onboardingAnswerProvider.notifier).clearVideo();
-
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text('Video deleted'),
-                                      backgroundColor: Colors.red,
-                                      duration: Duration(seconds: 1),
-                                    ),
-                                  );
-                                },
-                                child: Container(
-                                  padding: const EdgeInsets.all(6),
-                                  decoration: BoxDecoration(
-                                    color: Colors.black.withOpacity(0.7),
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: const Icon(
-                                    Icons.delete_outline_outlined,
-                                    color: Color(0xFF6C63FF),
-                                    size: 20,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
+                        const SizedBox(height: 8),
+                        Text(
+                          'Tell us about your intent and what motivates you to create experiences.',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey[500],
+                          ),
                         ),
+                        const SizedBox(height: 24),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF2A2A2A),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          padding: const EdgeInsets.all(16),
+                          child: TextField(
+                            controller: _textController,
+                            maxLines: 6,
+                            maxLength: _maxCharacters,
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 14),
+                            decoration: InputDecoration(
+                              hintText: '/ Start typing here',
+                              hintStyle: TextStyle(
+                                color: Colors.grey[600],
+                                fontSize: 14,
+                              ),
+                              border: InputBorder.none,
+                              counterStyle: TextStyle(color: Colors.grey[600]),
+                            ),
+                            onChanged: (value) {
+                              ref
+                                  .read(onboardingAnswerProvider.notifier)
+                                  .updateTextAnswer(value);
+                            },
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+                        if (_showInlineAudioRecorder)
+                          const InlineAudioRecorder(),
+                        if (answerState.videoPath != null) ...[
+                          const SizedBox(height: 24),
+                          const Text(
+                            'Recorded Video:',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          Stack(
+                            children: [
+                              Container(
+                                height: 200,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: Colors.black,
+                                  borderRadius: BorderRadius.circular(12),
+                                  border: Border.all(color: Colors.white10),
+                                ),
+                                child: const Center(
+                                  child: Icon(
+                                    Icons.play_circle_fill,
+                                    color: Colors.white,
+                                    size: 64,
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                top: 6,
+                                right: 6,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    ref.read(onboardingAnswerProvider.notifier).clearVideo();
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text('Video deleted'),
+                                        backgroundColor: Colors.red,
+                                        duration: Duration(seconds: 1),
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.all(6),
+                                    decoration: BoxDecoration(
+                                      color: Colors.black.withOpacity(0.7),
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: const Icon(
+                                      Icons.delete_outline_outlined,
+                                      color: Color(0xFF6C63FF),
+                                      size: 20,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                        const SizedBox(height: 100),
                       ],
-
-                      const SizedBox(height: 100),
-                    ],
+                    ),
                   ),
                 ),
               ),
             ),
-
-            // 🔹 Bottom Actions
             AnimatedContainer(
               duration: const Duration(milliseconds: 300),
               padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
               color: const Color(0xFF1A1A1A),
               child: Row(
                 children: [
-                  // 🎙️ Audio + Video Controls
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
@@ -284,7 +268,6 @@ class _OnboardingQuestionScreenState
                     ),
                     child: Row(
                       children: [
-                        // 🎤 Mic Button
                         GestureDetector(
                           onTap: () {
                             setState(() {
@@ -306,8 +289,6 @@ class _OnboardingQuestionScreenState
                           ),
                         ),
                         const SizedBox(width: 5),
-
-                        // Divider
                         SizedBox(
                           height: 32,
                           child: VerticalDivider(
@@ -317,8 +298,6 @@ class _OnboardingQuestionScreenState
                           ),
                         ),
                         const SizedBox(width: 5),
-
-                        // 🎥 Video Button
                         GestureDetector(
                           onTap: () => _showVideoRecorder(context),
                           child: Container(
@@ -337,10 +316,7 @@ class _OnboardingQuestionScreenState
                       ],
                     ),
                   ),
-
                   const SizedBox(width: 8),
-
-                  // 🔹 Next Button
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.only(left: 8),

@@ -2,16 +2,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/experience.dart';
 import '../services/api_service.dart';
 
-// API Service Provider
 final apiServiceProvider = Provider<ApiService>((ref) => ApiService());
 
-// Experiences Provider
 final experiencesProvider = FutureProvider<List<Experience>>((ref) async {
   final apiService = ref.watch(apiServiceProvider);
   return apiService.getExperiences();
 });
 
-// Selected Experiences State
 class ExperienceSelectionState {
   final List<int> selectedIds;
   final String description;
@@ -32,7 +29,6 @@ class ExperienceSelectionState {
   }
 }
 
-// Experience Selection Notifier
 class ExperienceSelectionNotifier
     extends StateNotifier<ExperienceSelectionState> {
   ExperienceSelectionNotifier() : super(ExperienceSelectionState());
@@ -58,10 +54,9 @@ class ExperienceSelectionNotifier
 
 final experienceSelectionProvider = StateNotifierProvider<
     ExperienceSelectionNotifier, ExperienceSelectionState>(
-  (ref) => ExperienceSelectionNotifier(),
+      (ref) => ExperienceSelectionNotifier(),
 );
 
-// Onboarding Answer State
 class OnboardingAnswerState {
   final String textAnswer;
   final String? audioPath;
@@ -113,6 +108,6 @@ class OnboardingAnswerNotifier extends StateNotifier<OnboardingAnswerState> {
 }
 
 final onboardingAnswerProvider =
-    StateNotifierProvider<OnboardingAnswerNotifier, OnboardingAnswerState>(
-  (ref) => OnboardingAnswerNotifier(),
+StateNotifierProvider<OnboardingAnswerNotifier, OnboardingAnswerState>(
+      (ref) => OnboardingAnswerNotifier(),
 );

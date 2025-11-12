@@ -33,7 +33,6 @@ class ExperienceCard extends StatelessWidget {
           child: Stack(
             fit: StackFit.expand,
             children: [
-              // Background Image
               ColorFiltered(
                 colorFilter: ColorFilter.mode(
                   isSelected ? Colors.transparent : Colors.grey,
@@ -77,8 +76,6 @@ class ExperienceCard extends StatelessWidget {
                   ),
                 ),
               ),
-
-              // Gradient Overlay
               Container(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
@@ -91,15 +88,12 @@ class ExperienceCard extends StatelessWidget {
                   ),
                 ),
               ),
-
-              // Content
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    // Icon
                     if (experience.iconUrl.isNotEmpty)
                       Container(
                         width: 24,
@@ -109,12 +103,9 @@ class ExperienceCard extends StatelessWidget {
                           imageUrl: experience.iconUrl,
                           fit: BoxFit.contain,
                           color: Colors.white,
-                          errorWidget: (context, url, error) =>
-                              const SizedBox(),
+                          errorWidget: (context, url, error) => const SizedBox(),
                         ),
                       ),
-
-                    // Name
                     Text(
                       experience.name,
                       style: const TextStyle(

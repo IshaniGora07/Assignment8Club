@@ -88,7 +88,6 @@ class _ExperienceSelectionScreenState
       body: SafeArea(
         child: Column(
           children: [
-            // Header
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Row(
@@ -98,14 +97,16 @@ class _ExperienceSelectionScreenState
                     icon: const Icon(Icons.arrow_back, color: Colors.white),
                     onPressed: () => Navigator.pop(context),
                   ),
-                  // Progress Indicator (3-step)
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                    padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                     child: Row(
-                      children: [Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                        child: _buildStepBar(3, currentStep: 1),
-                      ),
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 12),
+                          child: _buildStepBar(3, currentStep: 1),
+                        ),
                       ],
                     ),
                   ),
@@ -182,8 +183,6 @@ class _ExperienceSelectionScreenState
                     ),
                   ),
                   const SizedBox(height: 32),
-
-                  // Horizontal Scrolling Rotated Cards (Stamp Style)
                   SizedBox(
                     height: 110,
                     child: ListView.builder(
@@ -193,12 +192,9 @@ class _ExperienceSelectionScreenState
                       itemBuilder: (context, index) {
                         final experience = experiences[index];
                         final isSelected =
-                            selectionState.selectedIds.contains(experience.id);
-
-                        // Different rotation angles for stamp effect
+                        selectionState.selectedIds.contains(experience.id);
                         final rotations = [-0.1, 0.08, -0.09, 0.11, -0.07, 0.09];
                         final rotation = rotations[index % rotations.length];
-
                         return Padding(
                           padding: const EdgeInsets.only(right: 12),
                           child: Transform.rotate(
@@ -221,8 +217,7 @@ class _ExperienceSelectionScreenState
                                   isSelected: isSelected,
                                   onTap: () {
                                     ref
-                                        .read(
-                                            experienceSelectionProvider.notifier)
+                                        .read(experienceSelectionProvider.notifier)
                                         .toggleSelection(experience.id);
                                   },
                                 ),
@@ -233,10 +228,7 @@ class _ExperienceSelectionScreenState
                       },
                     ),
                   ),
-
                   const SizedBox(height: 32),
-
-                  // Text Input
                   Container(
                     decoration: BoxDecoration(
                       color: const Color(0xFF2A2A2A),
@@ -251,10 +243,9 @@ class _ExperienceSelectionScreenState
                           maxLines: 4,
                           maxLength: _maxCharacters,
                           style:
-                              const TextStyle(color: Colors.white, fontSize: 14),
+                          const TextStyle(color: Colors.white, fontSize: 14),
                           decoration: InputDecoration(
-                            hintText:
-                                '/ Describe your perfect hotspot',
+                            hintText: '/ Describe your perfect hotspot',
                             hintStyle: TextStyle(
                               color: Colors.grey[600],
                               fontSize: 14,
@@ -277,7 +268,6 @@ class _ExperienceSelectionScreenState
             ),
           ),
         ),
-
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: SizedBox(
@@ -285,15 +275,14 @@ class _ExperienceSelectionScreenState
             height: 52,
             child: Stack(
               children: [
-                // Gradient Background
                 Container(
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(12)),
                     gradient: LinearGradient(
                       colors: [
-                        Color(0xFF101010), // left dark
-                        Color(0xFF505050), // bright center
-                        Color(0xFF101010), // right dark
+                        Color(0xFF101010),
+                        Color(0xFF505050),
+                        Color(0xFF101010),
                       ],
                       stops: [0.0, 0.5, 1.0],
                       begin: Alignment.centerLeft,
@@ -301,8 +290,6 @@ class _ExperienceSelectionScreenState
                     ),
                   ),
                 ),
-
-                // Button Click Area
                 Material(
                   color: Colors.transparent,
                   child: InkWell(
@@ -331,8 +318,6 @@ class _ExperienceSelectionScreenState
                     ),
                   ),
                 ),
-
-                // 🖤 Dark overlay when NOT selected
                 if (!isSelected)
                   Container(
                     decoration: BoxDecoration(

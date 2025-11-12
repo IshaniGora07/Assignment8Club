@@ -39,10 +39,7 @@ class _VideoRecorderWidgetState extends State<VideoRecorderWidget> {
 
   void _stopRecording() {
     _timer?.cancel();
-
-    // Simulate saving the recording
-    final filePath =
-        'video_recording_${DateTime.now().millisecondsSinceEpoch}.mp4';
+    final filePath = 'video_recording_${DateTime.now().millisecondsSinceEpoch}.mp4';
     widget.onRecordingComplete(filePath);
   }
 
@@ -70,20 +67,16 @@ class _VideoRecorderWidgetState extends State<VideoRecorderWidget> {
       ),
       child: Column(
         children: [
-          // Handle
           Container(
             margin: const EdgeInsets.only(top: 12),
             width: 40,
             height: 4,
             decoration: BoxDecoration(
-              color: Colors.grey[700],
+              color: Colors.grey,
               borderRadius: BorderRadius.circular(2),
             ),
           ),
-
           const SizedBox(height: 24),
-
-          // Title
           Text(
             _isRecording ? 'Recording Video' : 'Record Video',
             style: const TextStyle(
@@ -92,10 +85,7 @@ class _VideoRecorderWidgetState extends State<VideoRecorderWidget> {
               color: Colors.white,
             ),
           ),
-
           const SizedBox(height: 24),
-
-          // Video Preview Area
           Expanded(
             child: Container(
               margin: const EdgeInsets.all(24),
@@ -103,51 +93,46 @@ class _VideoRecorderWidgetState extends State<VideoRecorderWidget> {
                 color: Colors.black,
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
-                  color: _isRecording
-                      ? const Color(0xFF6C63FF)
-                      : Colors.grey[800]!,
+                  color: _isRecording ? Color(0xFF6C63FF) : Colors.grey,
                   width: 2,
                 ),
               ),
               child: Stack(
                 children: [
-                  // Camera preview placeholder
                   Center(
                     child: _isRecording
                         ? Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: 80,
-                                height: 80,
-                                decoration: BoxDecoration(
-                                  color: Colors.red.withOpacity(0.2),
-                                  shape: BoxShape.circle,
-                                ),
-                                child: const Icon(
-                                  Icons.fiber_manual_record,
-                                  color: Colors.red,
-                                  size: 40,
-                                ),
-                              ),
-                              const SizedBox(height: 16),
-                              const Text(
-                                'Recording in progress...',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14,
-                                ),
-                              ),
-                            ],
-                          )
-                        : Icon(
-                            Icons.videocam,
-                            size: 80,
-                            color: Colors.grey[800],
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 80,
+                          height: 80,
+                          decoration: BoxDecoration(
+                            color: Colors.red.withOpacity(0.2),
+                            shape: BoxShape.circle,
                           ),
+                          child: const Icon(
+                            Icons.fiber_manual_record,
+                            color: Colors.red,
+                            size: 40,
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        const Text(
+                          'Recording in progress...',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
+                    )
+                        : Icon(
+                      Icons.videocam,
+                      size: 80,
+                      color: Colors.grey,
+                    ),
                   ),
-
-                  // Recording Timer
                   if (_isRecording)
                     Positioned(
                       top: 16,
@@ -189,36 +174,30 @@ class _VideoRecorderWidgetState extends State<VideoRecorderWidget> {
               ),
             ),
           ),
-
-          // Action Buttons
           Padding(
             padding: const EdgeInsets.all(24.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 if (_isRecording) ...[
-                  // Cancel Button
                   _buildActionButton(
                     icon: Icons.close,
                     label: 'Cancel',
                     color: Colors.red,
                     onPressed: _cancelRecording,
                   ),
-
-                  // Stop & Save Button
                   _buildActionButton(
                     icon: Icons.check,
                     label: 'Save',
-                    color: const Color(0xFF6C63FF),
+                    color: Color(0xFF6C63FF),
                     onPressed: _stopRecording,
                   ),
                 ] else
-                  // Start Recording Button
                   Expanded(
                     child: ElevatedButton(
                       onPressed: _startRecording,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF6C63FF),
+                        backgroundColor: Color(0xFF6C63FF),
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(26),

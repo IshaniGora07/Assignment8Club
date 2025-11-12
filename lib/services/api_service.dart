@@ -6,13 +6,13 @@ class ApiService {
 
   ApiService()
       : _dio = Dio(BaseOptions(
-          baseUrl: 'https://staging.chamberofsecrets.8club.co',
-          connectTimeout: const Duration(seconds: 10),
-          receiveTimeout: const Duration(seconds: 10),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        ));
+    baseUrl: 'https://staging.chamberofsecrets.8club.co',
+    connectTimeout: const Duration(seconds: 10),
+    receiveTimeout: const Duration(seconds: 10),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  ));
 
   Future<List<Experience>> getExperiences() async {
     try {
